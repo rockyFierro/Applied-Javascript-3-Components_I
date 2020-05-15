@@ -1,33 +1,70 @@
 /* This is the data we will be using, study it but don't change anything, yet. */
 
 let menuItems = [
-  'Students',
-  'Faculty',
+  "Students",
+  "Faculty",
   "What's New",
-  'Tech Trends',
-  'Music',
-  'Log Out'
+  "Tech Trends",
+  "Music",
+  "Log Out",
 ];
 
 /* 
-  Step 1: Write a component called 'menuMaker' to create a menu like the markup below:
-
+  Step 1: Write a function that will create a menu component as seen below:
   <div class="menu">
     <ul>
       {each menu item as a list item}
     </ul>
-  </div>
+    </div>
+    The function takes an array as its only argument.*/
 
-  The 'menuMaker' takes an array as its only argument.
+const menuMaker = (args) => {//args is any array of strings you want to use as a list for the menu
+  const make = (tag) => document.createElement(tag);//shortens repeating syntax
+  /*  Step 2: Inside this function, iterate over the array creating a list item <li> element for each item in the array. 
+      Add those items to the <ul>*/
+  const newMenu = make("div");
+  const newContent = make("ul");
+  const students = make("li");
+  const faculty = make("li");
+  const whatsNew = make("li");
+  const techTrends = make("li");
+  const music = make("li");
+  const logout = make("li");
 
-  Step 2: Inside the function, iterate over the array creating a list item <li> element for each item in the array. 
-  Add those items to the <ul>
+  newMenu.classList.add("menu");  
 
-  Step 3: Using a DOM selector, select the menu button (the element with a class of 'menu-button') currently on the DOM.
+  newMenu.append(newContent);
+  newContent.append(
+    students,
+    faculty,
+    whatsNew,
+    techTrends,
+    music,
+    logout
+    );
+    
+    students.textContent = args[0];
+    faculty.textContent = args[1];
+    whatsNew.textContent = args[2];
+    techTrends.textContent = args[3];
+    music.textContent = args[4];
+    logout.textContent = args[5];
+    //Step 3: Using a DOM selector, select the menu button(the element with a class of 'menu-button') currently on the DOM.
 
-  Step 4: add a click event listener to the menu button. When clicked it should toggle the class 'menu--open' on the menu (your div with a 'menu' class).
+    const domMenuObj = document.querySelector(".menu-button");
+    domMenuObj.addEventListener("click", ()=>{
+      newMenu.classList.toggle("menu--open");
+    });
 
-  Step 5: return your div with a 'menu' class.
+    return newMenu;
+  };
 
-  Step 6: Use 'menuMaker' to create a menu using the 'menuItems' array, and append the returned markup to the DOM.
-*/
+
+//  Step 4: add a click event listener to the menu button.When clicked it should toggle the class 'menu--open' on the menu(your div with a 'menu' class).
+
+//Step 5: return the menu component.
+
+//  Step 6: add the menu component to the DOM.
+
+const newMenu = menuMaker(...menuItems);
+document.querySelector("menu-button").append(newMenu);

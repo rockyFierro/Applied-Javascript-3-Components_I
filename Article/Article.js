@@ -87,27 +87,52 @@ const data = [
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
   }
 ];
+/* Step 1: Create a function that creates a component. You will want your component to look like the template below: */
+/*  Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.*/
 
-/* Step 1: Write a component called 'articleMaker' to create an article. You want your component to return markup like the template below: 
+const createArticle = (title,date,firstParagraph,secondParagraph,thirdParagraph)=>{
 
-  <div class="article">
-    <h2>{title of the article}</h2>
-    <p class="date">{date of the article}</p>
+   /* Hint: You will need to use createElement more than once here!*/
+  const article = document.createElement('div');
+  const headline = document.createElement('h2');
+  const publishDate = document.createElement('p');
+  const firstP = document.createElement('p');
+  const secondP = document.createElement('p');
+  const thirdP = document.createElement('p');
+  const expand = document.createElement('span');
 
-    {three separate paragraph elements}
+  article.classList.add('article');
+  publishDate.classList.add('date');
+  expand.classList.add('expandButton');
 
-    <span class='expandButton'></span>
-  </div>
+  headline.textContent = title;
+  publishDate.textContent = date;
+  firstP.textContent = firstParagraph;
+  secondP.textContent = secondParagraph;
+  thirdP.textContent = thirdParagraph;
+  expand.textContent = 'Read';
 
-  Hint: You will need to use createElement more than once here!
+  article.append(headline,
+    publishDate,
+    firstP,
+    secondP,
+    thirdP,
+    expand);
 
-  Your function should take either an object as its one argument, or 5 separate arguments mapping to each piece of the data object above.
+  expand.addEventListener('click',()=>{
+    article.classList.toggle("article-open");
+  });
 
-  Step 2: Add an event listener to the expandButton span. This listener should toggle the class 'article-open' on the 'article' div.
+  /*  Step 3: return the entire component.*/
+      return article;
+};
 
-  Step 3: Don't forget to return something from your function!
+const articles = document.querySelector('.articles');
 
-  Step 4: Outside your function, loop over the data. At each iteration you'll use your component to create an article and append it to the DOM inside the 'articles' div.
+data.map(article => articles.appendChild(createArticle(article.title, article.date, article.firstParagraph, article.secondParagraph, article.thirdParagraph)));
 
-  Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
-*/
+
+/*  Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.*/
+articles.appendChild(createArticle("Merlin's Advice", 'Jan 1st, 1958',`"The best thing for being sad", replied Merlin, beginning to puff and blow, "is to learn something."` , `"That's the only thing that never fails. You may grow old and trembling in your anatomies, you may lie awake at night listening to the disorder of your veins, you may miss your only love, you may see the world about you devastated by evil lunatics, or know your honour trampled in the sewers of baser minds."` , `"There is only one thing for it then — to learn. Learn why the world wags and what wags it. That is the only thing which the mind can never exhaust, never alienate, never be tortured by, never fear or distrust, and never dream of regretting. Learning is the only thing for you. Look what a lot of things there are to learn."`
+));
+
