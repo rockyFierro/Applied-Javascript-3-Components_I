@@ -66,5 +66,5 @@ const menuMaker = (args) => {//args is any array of strings you want to use as a
 
 //  Step 6: add the menu component to the DOM.
 
-const newMenu = menuMaker(...menuItems);
-document.querySelector("menu-button").append(newMenu);
+const newMenu = menuMaker(menuItems);
+document.querySelector(".header").append(newMenu);
